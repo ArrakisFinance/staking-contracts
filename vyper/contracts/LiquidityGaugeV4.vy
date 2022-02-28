@@ -149,8 +149,8 @@ def initialize(_staking_token: address, _admin: address, _ANGLE: address, _votin
     self.decimal_staking_token = ERC20Extended(_staking_token).decimals()
 
     symbol: String[26] = ERC20Extended(_staking_token).symbol()
-    self.name = concat("Matic ", symbol, " Gauge")
-    self.symbol = concat("st", symbol)
+    self.name = concat(symbol, " Spice Harvester") # aesthetic change by Arrakis Finance
+    self.symbol = concat("st", symbol) # aesthetic change by Arrakis Finance
     self.ANGLE = _ANGLE
     self.voting_escrow = _voting_escrow
     self.veBoost_proxy = _veBoost_proxy
