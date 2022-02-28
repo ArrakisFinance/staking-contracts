@@ -1,15 +1,16 @@
 # @version 0.2.16
 """
 @title Liquidity Gauge v4
-@author Angle Protocol
+@author Arrakis Finance
 @license MIT
 """
 
 # Original idea and credit:
-# Curve Finance's veCRV
+# Curve Finance's LiquidityGaugeV4
 # https://github.com/curvefi/curve-dao-contracts/blob/master/contracts/gauges/LiquidityGaugeV4.vy
-# Mostly forked from Curve, except that now there is no direct link between the gauge controller
-# and the gauges. In this implementation, ANGLE rewards are like any other token rewards.
+# Angle Protocol added upgradeability and modifications (no reliance on GaugeController)
+# https://github.com/AngleProtocol/angle-core/blob/main/contracts/staking/LiquidityGaugeV4.vy
+# This is a direct fork of Angle's implementation, only variable names and constants have been altered
 
 from vyper.interfaces import ERC20
 
@@ -73,9 +74,9 @@ struct Reward:
 
 MAX_REWARDS: constant(uint256) = 8
 TOKENLESS_PRODUCTION: constant(uint256) = 40
-WEEK: constant(uint256) = 604800
+WEEK: constant(uint256) = 7257600 # ARRAKIS CHANGE: 12 weeks rather than 1 week, to support 3 month LM program
 
-ANGLE: public(address)
+SPICE: public(address)
 voting_escrow: public(address)
 veBoost_proxy: public(address)
 
@@ -125,21 +126,21 @@ def __init__():
     self.initialized = True
 
 @external
-def initialize(_staking_token: address, _admin: address, _ANGLE: address, _voting_escrow: address, _veBoost_proxy: address, _distributor: address):
+def initialize(_staking_token: address, _admin: address, _SPICE: address, _voting_escrow: address, _veBoost_proxy: address, _distributor: address):
     """
     @notice Contract initializer
     @param _staking_token Liquidity Pool contract address
     @param _admin Admin who can kill the gauge
-    @param _ANGLE Address of the ANGLE token
-    @param _voting_escrow Address of the veANGLE contract
-    @param _veBoost_proxy Address of the proxy contract used to query veANGLE balances and taking into account potential delegations
-    @param _distributor Address of the contract responsible for distributing ANGLE tokens to this gauge
+    @param _SPICE Address of the SPICE token
+    @param _voting_escrow Address of the veSPICE contract
+    @param _veBoost_proxy Address of the proxy contract used to query veSPICE balances and taking into account potential delegations
+    @param _distributor Address of the contract responsible for distributing SPICE tokens to this gauge
     """
     assert self.initialized == False #dev: contract is already initialized
     self.initialized = True
 
     assert _admin != ZERO_ADDRESS
-    assert _ANGLE != ZERO_ADDRESS
+    assert _SPICE != ZERO_ADDRESS
     assert _voting_escrow != ZERO_ADDRESS
     assert _veBoost_proxy != ZERO_ADDRESS
     assert _distributor != ZERO_ADDRESS
@@ -151,13 +152,13 @@ def initialize(_staking_token: address, _admin: address, _ANGLE: address, _votin
     symbol: String[26] = ERC20Extended(_staking_token).symbol()
     self.name = concat(symbol, " Spice Harvester") # aesthetic change by Arrakis Finance
     self.symbol = concat("st", symbol) # aesthetic change by Arrakis Finance
-    self.ANGLE = _ANGLE
+    self.SPICE = _SPICE
     self.voting_escrow = _voting_escrow
     self.veBoost_proxy = _veBoost_proxy
 
-    # add in all liquidityGauge the ANGLE reward - the distribution could be null though
-    self.reward_data[_ANGLE].distributor = _distributor
-    self.reward_tokens[0] = _ANGLE
+    # add in all liquidityGauge the SPICE reward - the distribution could be null though
+    self.reward_data[_SPICE].distributor = _distributor
+    self.reward_tokens[0] = _SPICE
     self.reward_count = 1
     
 
@@ -175,9 +176,9 @@ def decimals() -> uint256:
 @internal
 def _update_liquidity_limit(addr: address, l: uint256, L: uint256):
     """
-    @notice Calculate limits which depend on the amount of ANGLE token per-user.
+    @notice Calculate limits which depend on the amount of SPICE token per-user.
             Effectively it calculates working balances to apply amplification
-            of ANGLE production by ANGLE
+            of SPICE production by SPICE
     @param addr User address
     @param l User's amount of liquidity (LP tokens)
     @param L Total amount of liquidity (LP tokens)
@@ -206,7 +207,7 @@ def _checkpoint_reward(_user: address, token: address, _total_supply: uint256, _
     """
     total_supply: uint256 = _total_supply
     user_balance: uint256 = _user_balance
-    if token == self.ANGLE : 
+    if token == self.SPICE : 
         total_supply = self.working_supply
         user_balance = self.working_balances[_user]
 
@@ -247,7 +248,7 @@ def _checkpoint_reward(_user: address, token: address, _total_supply: uint256, _
             elif new_claimable > 0:
                 self.claim_data[_user][token] = total_claimed + shift(total_claimable, 128)
     
-    if token == self.ANGLE : 
+    if token == self.SPICE : 
         self.integrate_checkpoint_of[_user] = block.timestamp
                 
 @internal
@@ -268,7 +269,7 @@ def _checkpoint_rewards(_user: address, _total_supply: uint256, _claim: bool, _r
                 receiver = _user
 
     if _only_checkpoint:
-        self._checkpoint_reward(_user, self.ANGLE, _total_supply, user_balance, False, receiver)
+        self._checkpoint_reward(_user, self.SPICE, _total_supply, user_balance, False, receiver)
     else:
         reward_count: uint256 = self.reward_count
         for i in range(MAX_REWARDS):
@@ -314,7 +315,7 @@ def claimable_reward(_user: address, _reward_token: address) -> uint256:
     integral: uint256 = self.reward_data[_reward_token].integral
     total_supply: uint256 = self.totalSupply
     user_balance: uint256 = self.balanceOf[_user]
-    if _reward_token == self.ANGLE : 
+    if _reward_token == self.SPICE : 
         total_supply = self.working_supply
         user_balance = self.working_balances[_user]
         
