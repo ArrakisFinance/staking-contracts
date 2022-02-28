@@ -1,7 +1,7 @@
 {
-  "name": "polygon-g-uni-staking",
+  "name": "polygon-staking",
   "version": "0.0.1",
-  "description": "polygon g-uni staking",
+  "description": "polygon staking",
   "scripts": {
     "build": "yarn compile && npx tsc",
     "compile": "npx hardhat compile --force",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gelatodigital/polygon-g-uni-staking"
+    "url": "git+https://github.com/ArrakisFinance/polygon-staking"
   },
   "license": "ISC",
   "devDependencies": {
