@@ -22,7 +22,6 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   await deploy("MockCRV", {
     from: deployer,
     args: [],
-    gasPrice: hre.ethers.utils.parseUnits("60", "gwei"),
     log: hre.network.name !== "hardhat" ? true : false,
   });
 };

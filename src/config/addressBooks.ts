@@ -21,16 +21,16 @@ export const getAddressBookByNetwork = (network: string) => {
 
     case "matic":
       return {
-        AdminMultiSig: "0x88215a2794ddC031439C72922EC8983bDE831c78",
-        GaugeImplementation: "0x5780Bb3A9f579Dc181B5FE00d8f56224DD9e04a0",
-        MockCRV: "0x1cA8bc12faCcdE52D3D4Ee21020d63e15714534f",
-        MockVE: "0x969681d96549F7F124D3585FfeEb2C05CAd4813F",
-        MockBoost: "0x72155b4cEa73b000973376cD10BD7607A236A6F7",
+        AdminMultiSig: "0xAa2E0c5c85ACb7717e58060AB3c96d2B184EE07C",
+        GaugeImplementation: "0x384D4fb21fd9c8Cc77c3448b4303B0C40Ae99a5D",
+        MockCRV: "0x3755CEaa62F70B989f1DE71d6b868cEd2dAD0D32",
+        MockVE: "0x9d9208c87dc9b3a458Af62f510fdEC401a08DDc0",
+        MockBoost: "0x9a1cF3931e682C32acF35b1D238090560B4815E5",
       };
 
     case "goerli":
       return {
-        AdminMultiSig: "0x4B5BaD436CcA8df3bD39A095b84991fAc9A226F1",
+        AdminMultiSig: "",
         GaugeImplementation: "",
         MockCRV: "",
         MockVE: "",
@@ -38,7 +38,7 @@ export const getAddressBookByNetwork = (network: string) => {
       };
     case "hardhat":
       return {
-        AdminMultiSig: "0x88215a2794ddC031439C72922EC8983bDE831c78",
+        AdminMultiSig: "0xAa2E0c5c85ACb7717e58060AB3c96d2B184EE07C",
         GaugeImplementation: "",
         MockCRV: "",
         MockVE: "",

@@ -2,7 +2,7 @@ import { ethers, network, deployments } from "hardhat";
 import { sleep } from "../../src/utils";
 import { getAddressBookByNetwork } from "../../src/config";
 import VoteEscrow from "../build/contracts/VotingEscrow.json";
-import EscrowDelegation from "../build/contracts/VotingEscrowDelegation.json";
+import EscrowDelegation from "../build/contracts/DelegationProxy.json";
 import Gauge from "../build/contracts/LiquidityGaugeV4.json";
 
 const addresses = getAddressBookByNetwork(network.name);
@@ -35,14 +35,12 @@ const deploy = async () => {
   const veBoost = await veBoostFactory
     .connect(signer)
     .deploy(
-      addresses.AdminMultiSig,
       ve.address,
-      "Delegated veCRV Boost",
-      "veBOOST",
-      "",
+      ethers.constants.AddressZero,
+      addresses.AdminMultiSig,
       { gasLimit: 6000000 }
     );
-  console.log("VOTING ESCROW DELEGATION DEPLOYED:", veBoost.address);
+  console.log("DELEGATION PROXY DEPLOYED:", veBoost.address);
   await sleep(10000);
   const gaugeImplFactory = ethers.ContractFactory.fromSolidity(Gauge);
   const gaugeImpl = await gaugeImplFactory.connect(signer).deploy({ gasLimit: 6000000 });

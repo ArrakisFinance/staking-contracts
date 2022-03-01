@@ -39,7 +39,6 @@ const deploy = async (
     .connect(signer)
     .deploy(addresses.GaugeImplementation, await signer.getAddress(), encoded, {
       gasLimit: 6000000,
-      gasPrice: ethers.utils.parseUnits("60", "gwei")
     });
 
   console.log("GAUGE DEPLOYED:", contract.address);

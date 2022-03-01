@@ -74,7 +74,7 @@ struct Reward:
 
 MAX_REWARDS: constant(uint256) = 8
 TOKENLESS_PRODUCTION: constant(uint256) = 40
-WEEK: constant(uint256) = 7257600 # ARRAKIS CHANGE: 12 weeks rather than 1 week, to support 3 month LM program
+WEEK: constant(uint256) = 604800
 
 SPICE: public(address)
 voting_escrow: public(address)
