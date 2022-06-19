@@ -12,11 +12,11 @@ export const getAddressBookByNetwork = (network: string) => {
 
     case "mainnet":
       return {
-        AdminMultiSig: "",
-        GaugeImplementation: "",
-        MockCRV: "",
-        MockVE: "",
-        MockBoost: "",
+        AdminMultiSig: "0x5108EF86cF493905BcD35A3736e4B46DeCD7de58",
+        GaugeImplementation: "0x86D62A8AD19998E315e6242b63eB73F391D4674B",
+        MockCRV: "0xD533a949740bb3306d119CC777fa900bA034cd52",
+        MockVE: "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
+        MockBoost: "0xD67bdBefF01Fc492f1864E61756E5FBB3f173506",
       };
 
     case "matic":
