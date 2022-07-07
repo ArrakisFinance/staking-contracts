@@ -1,15 +1,11 @@
-import { ethers, network, deployments } from "hardhat";
+import { ethers, network } from "hardhat";
 import { sleep } from "../../src/utils";
 import LiquidityGaugeV4 from "../build/contracts/LiquidityGaugeV4.json";
 import { getAddressBookByNetwork } from "../../src/config";
 
 const addresses = getAddressBookByNetwork(network.name);
 
-const deploy = async (
-  lpTokenAddr: string
-) => {
-  const crvAddress = (await deployments.get("MockCRV")).address;
-  console.log("crv address:", crvAddress);
+const deploy = async (lpTokenAddr: string) => {
   if (
     network.name === "mainnet" ||
     network.name === "matic" ||
@@ -20,16 +16,20 @@ const deploy = async (
     );
     console.log("base implementation address:", addresses.GaugeImplementation);
     console.log("lp token address:", lpTokenAddr);
+    console.log("crv token address:", addresses.MockCRV);
     console.log("ve address:", addresses.MockVE);
     console.log("veBoost proxy address:", addresses.MockBoost);
     await sleep(20000);
   }
   const [signer] = await ethers.getSigners();
-  const gaugeImpl = await ethers.getContractAt(LiquidityGaugeV4.abi, addresses.GaugeImplementation);
+  const gaugeImpl = await ethers.getContractAt(
+    LiquidityGaugeV4.abi,
+    addresses.GaugeImplementation
+  );
   const encoded = gaugeImpl.interface.encodeFunctionData("initialize", [
     lpTokenAddr,
     addresses.AdminMultiSig,
-    crvAddress,
+    addresses.MockCRV,
     addresses.MockVE,
     addresses.MockBoost,
     addresses.AdminMultiSig,
@@ -47,6 +47,6 @@ const deploy = async (
 (async () => {
   await deploy(
     // LP TOKEN ADDRESS
-    "LP_TOKEN_ADDRESS_HERE",
+    "LP_TOKEN_ADDRESS_HERE"
   );
 })();
