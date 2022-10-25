@@ -3,11 +3,11 @@ export const getAddressBookByNetwork = (network: string) => {
   switch (network) {
     case "optimism":
       return {
-        AdminMultiSig: "",
-        GaugeImplementation: "",
-        MockCRV: "",
-        MockVE: "",
-        MockBoost: "",
+        AdminMultiSig: "0x8636600A864797Aa7ac8807A065C5d8BD9bA3Ccb",
+        GaugeImplementation: "0xe03311D30bdeb60511BAe8de135C6524B9576B2e",
+        MockCRV: "0xB9BB2856e0Af9d3e855b0173A40059Fc29b632dA",
+        MockVE: "0xd158CCfabef917ae2f01E454D07E1F2055e44c79",
+        MockBoost: "0x336649aEb266f3182d63f4FAD7B3cF0dBa15f4c8",
       };
 
     case "mainnet":
