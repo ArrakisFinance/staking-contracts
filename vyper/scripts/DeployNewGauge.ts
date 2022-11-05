@@ -35,6 +35,7 @@ const deploy = async (lpTokenAddr: string) => {
     addresses.AdminMultiSig,
   ]);
   const factory = await ethers.getContractFactory("EIP173Proxy");
+  console.log(addresses.GaugeImplementation, addresses.AdminMultiSig, encoded);
   const contract = await factory
     .connect(signer)
     .deploy(addresses.GaugeImplementation, addresses.AdminMultiSig, encoded, {
@@ -47,6 +48,6 @@ const deploy = async (lpTokenAddr: string) => {
 (async () => {
   await deploy(
     // LP TOKEN ADDRESS
-    "LP-TOKEN-ADDRESS-HERE"
+    "LP_TOKEN_ADDRESS_HERE"
   );
 })();

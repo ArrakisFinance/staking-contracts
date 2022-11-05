@@ -1,4 +1,4 @@
-import { deployments, getNamedAccounts, ethers } from "hardhat";
+import { deployments, ethers, getNamedAccounts } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { sleep } from "../src/utils";
@@ -12,7 +12,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     hre.network.name === "arbitrum"
   ) {
     console.log(
-      `Deploying MockCRV to ${hre.network.name}. Hit ctrl + c to abort`
+      `Deploying GaugeRegistry to ${hre.network.name}. Hit ctrl + c to abort`
     );
     await sleep(10000);
   }
@@ -20,8 +20,12 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
 
-  await deploy("MockCRV", {
+  await deploy("GaugeRegistry", {
     from: deployer,
+    proxy: {
+      proxyContract: "EIP173Proxy",
+      owner: deployer,
+    },
     args: [],
     log: hre.network.name !== "hardhat" ? true : false,
     gasPrice: ethers.utils.parseUnits("0.1", "gwei")
@@ -41,4 +45,4 @@ func.skip = async (hre: HardhatRuntimeEnvironment) => {
   return shouldSkip ? true : false;
 };
 
-func.tags = ["MockCRV"];
+func.tags = ["GaugeRegistry"];
