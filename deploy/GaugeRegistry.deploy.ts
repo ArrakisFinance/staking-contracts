@@ -1,4 +1,4 @@
-import { deployments, ethers, getNamedAccounts } from "hardhat";
+import { deployments, getNamedAccounts } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { sleep } from "../src/utils";
@@ -28,7 +28,6 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     },
     args: [],
     log: hre.network.name !== "hardhat" ? true : false,
-    gasPrice: ethers.utils.parseUnits("0.1", "gwei")
   });
 };
 
@@ -39,7 +38,7 @@ func.skip = async (hre: HardhatRuntimeEnvironment) => {
     hre.network.name === "mainnet" ||
     hre.network.name === "matic" ||
     hre.network.name === "goerli" ||
-    //hre.network.name === "arbitrum" ||
+    hre.network.name === "arbitrum" ||
     hre.network.name === "optimism";
 
   return shouldSkip ? true : false;
