@@ -22,10 +22,10 @@ export const getAddressBookByNetwork = (network: string) => {
     case "arbitrum":
       return {
         AdminMultiSig: "0x77BADa8FC2A478f1bc1E1E4980916666187D0dF7",
-        GaugeImplementation: "0xF85bC85AE9A480180428f537321536aE9199bb9f",
+        GaugeImplementation: "0x4Ace4b3eb96BD7b3136aB7e14f070717a8137be8",
         MockCRV: "0xf397073BF8AA624271EFcF01952f448BD82bf1C4",
-        MockVE: "0x415154e1425EEDF3E335A47E8B4f5E729F7a0814",
-        MockBoost: "0xCfC1EE39c22f00cE10bEbbE45E4ed8F67F466839",
+        MockVE: "0x0bF220343ba29a422db1577eD2DdA173c39A42DE",
+        MockBoost: "0x31a38B9B9E4b134bDF2559605EB6FC30F24a47D5",
       };
 
     case "matic":
