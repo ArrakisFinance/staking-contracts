@@ -9,7 +9,8 @@ const deploy = async (lpTokenAddr: string) => {
   if (
     network.name === "mainnet" ||
     network.name === "matic" ||
-    network.name === "optimism"
+    network.name === "optimism" ||
+    network.name === "arbitrum"
   ) {
     console.log(
       `Deploying LiquidityGaugeV4 to ${network.name}. Hit ctrl + c to abort`
@@ -48,6 +49,6 @@ const deploy = async (lpTokenAddr: string) => {
 (async () => {
   await deploy(
     // LP TOKEN ADDRESS
-    "LP_TOKEN_ADDRESS_HERE"
+    "0xbc73933C8CA2b32ef3fB6B6aC8a53070EB05F9fd"
   );
 })();
