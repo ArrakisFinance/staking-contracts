@@ -17,7 +17,7 @@ export const getAddressBookByNetwork = (network: string) => {
         GaugeImplementation: "0x86D62A8AD19998E315e6242b63eB73F391D4674B",
         MockCRV: "0xD533a949740bb3306d119CC777fa900bA034cd52",
         MockVE: "0x5f3b5DfEb7B28CDbD7FAba78963EE202a494e2A2",
-        MockBoost: "0xD67bdBefF01Fc492f1864E61756E5FBB3f173506",
+        MockBoost: "0x8E0c00ed546602fD9927DF742bbAbF726D5B0d16",
         GaugeRegistry: "0xf397073BF8AA624271EFcF01952f448BD82bf1C4",
       };
 
