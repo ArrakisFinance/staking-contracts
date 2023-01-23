@@ -9,7 +9,8 @@ const deploy = async (lpTokenAddr: string) => {
   if (
     network.name === "mainnet" ||
     network.name === "matic" ||
-    network.name === "optimism"
+    network.name === "optimism" ||
+    network.name === "arbitrum"
   ) {
     console.log(
       `Deploying LiquidityGaugeV4 to ${network.name}. Hit ctrl + c to abort`
@@ -35,6 +36,7 @@ const deploy = async (lpTokenAddr: string) => {
     addresses.AdminMultiSig,
   ]);
   const factory = await ethers.getContractFactory("EIP173Proxy");
+  console.log(addresses.GaugeImplementation, addresses.AdminMultiSig, encoded);
   const contract = await factory
     .connect(signer)
     .deploy(addresses.GaugeImplementation, addresses.AdminMultiSig, encoded, {
@@ -47,6 +49,6 @@ const deploy = async (lpTokenAddr: string) => {
 (async () => {
   await deploy(
     // LP TOKEN ADDRESS
-    "LP-TOKEN-ADDRESS-HERE"
+    "0xbc73933C8CA2b32ef3fB6B6aC8a53070EB05F9fd"
   );
 })();

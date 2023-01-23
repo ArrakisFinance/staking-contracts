@@ -12,7 +12,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     hre.network.name === "arbitrum"
   ) {
     console.log(
-      `Deploying MockWMATIC to ${hre.network.name}. Hit ctrl + c to abort`
+      `Deploying GaugeRegistry to ${hre.network.name}. Hit ctrl + c to abort`
     );
     await sleep(10000);
   }
@@ -20,8 +20,12 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
 
-  await deploy("MockWMATIC", {
+  await deploy("GaugeRegistry", {
     from: deployer,
+    proxy: {
+      proxyContract: "EIP173Proxy",
+      owner: deployer,
+    },
     args: [],
     log: hre.network.name !== "hardhat" ? true : false,
   });
@@ -40,4 +44,4 @@ func.skip = async (hre: HardhatRuntimeEnvironment) => {
   return shouldSkip ? true : false;
 };
 
-func.tags = ["MockWMATIC"];
+func.tags = ["GaugeRegistry"];
