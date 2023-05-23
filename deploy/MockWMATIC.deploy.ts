@@ -8,6 +8,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   if (
     hre.network.name === "mainnet" ||
     hre.network.name === "matic" ||
+    hre.network.name === "goerli" ||
     hre.network.name === "optimism" ||
     hre.network.name === "arbitrum"
   ) {

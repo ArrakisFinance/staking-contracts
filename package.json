@@ -14,7 +14,9 @@
     "lint:sol": "solhint 'contracts/**/*.sol'",
     "postinstall": "yarn husky install",
     "test": "npx hardhat test",
-    "verify": "npx hardhat etherscan-verify"
+    "verify": "npx hardhat etherscan-verify",
+    "deploy-gauge-impl": "npx hardhat run ./vyper/scripts/DeployGaugeImpl.ts",
+    "deploy-new-gauge": "npx hardhat run ./vyper/scripts/DeployNewGauge.ts"
   },
   "repository": {
     "type": "git",

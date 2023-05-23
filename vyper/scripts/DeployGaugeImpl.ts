@@ -12,6 +12,7 @@ const deploy = async () => {
     network.name === "mainnet" ||
     network.name === "matic" ||
     network.name === "optimism" ||
+    network.name === "goerli" ||
     network.name === "arbitrum"
   ) {
     console.log(
