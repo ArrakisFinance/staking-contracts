@@ -1,4 +1,4 @@
-# @version 0.2.16
+# @version 0.3.1
 """
 @title Liquidity Gauge v4
 @author Arrakis Finance
@@ -62,6 +62,12 @@ event Approval:
 event RewardDataUpdate:
     _token: indexed(address)
     _amount: uint256
+
+event ClaimReward:
+    user: indexed(address)
+    token: indexed(address)
+    amount: uint256
+    receiver: address
 
 struct Reward:
     token: address
@@ -244,6 +250,7 @@ def _checkpoint_reward(_user: address, token: address, _total_supply: uint256, _
                 )
                 if len(response) != 0:
                     assert convert(response, bool)
+                log ClaimReward(_user, token, total_claimable, receiver)
                 self.claim_data[_user][token] = total_claimed + total_claimable
             elif new_claimable > 0:
                 self.claim_data[_user][token] = total_claimed + shift(total_claimable, 128)
