@@ -43,12 +43,12 @@ export const getAddressBookByNetwork = (network: string) => {
 
     case "goerli":
       return {
-        AdminMultiSig: "",
-        GaugeImplementation: "",
-        MockCRV: "",
-        MockVE: "",
-        MockBoost: "",
-        GaugeRegistry: "",
+        AdminMultiSig: "0xB4fa2C382dAf08531F8BA4515F409A129beCFd02",
+        GaugeImplementation: "0xB82C4D83FA50bFA04E8778529d58305Cf3feE83e",
+        MockCRV: "0xc164893891d312876c8b0a59811db096f8a740cc",
+        MockVE: "0x654B32A1230A78cE2FeB4CC42952dC89C5f482C1",
+        MockBoost: "0x3025b46A9814a69EAf8699EDf905784Ee22C3ABB",
+        GaugeRegistry: "0xC7D07F21b1A8F320018208D02daDF8A0CBd3ce48",
       };
     case "hardhat":
       return {
