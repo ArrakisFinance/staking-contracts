@@ -10,7 +10,7 @@
 # https://github.com/curvefi/curve-dao-contracts/blob/master/contracts/gauges/LiquidityGaugeV4.vy
 # Angle Protocol added upgradeability and modifications (no reliance on GaugeController)
 # https://github.com/AngleProtocol/angle-core/blob/main/contracts/staking/LiquidityGaugeV4.vy
-# This is a direct fork of Angle's implementation, only variable names and constants have been altered
+# This is a direct fork of Angle's implementation, only variable names, constants, and events have been altered
 
 from vyper.interfaces import ERC20
 
@@ -80,7 +80,7 @@ struct Reward:
 
 MAX_REWARDS: constant(uint256) = 8
 TOKENLESS_PRODUCTION: constant(uint256) = 40
-WEEK: constant(uint256) = 604800 # 1 week = 7 days = 86400 * 7
+WEEK: constant(uint256) = 2419200 # NOTE: MONTHLY (4 weeks) not weeklong reward cycles (86400 * 7 * 4)
 
 SPICE: public(address)
 voting_escrow: public(address)
